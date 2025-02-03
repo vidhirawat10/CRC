@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Museum Ticket Booking Chatbot System">
+    <meta name="keywords" content="Museum, Tickets, Booking, Chatbot, Payment">
+    <meta name="author" content="Your Name">
+    <title>Museum Ticket Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+            color: #fff;
+            background: linear-gradient(to right, rgba(0, 198, 255, 0.8), rgba(255, 106, 106, 0.8)), url('https://images.unsplash.com/photo-1517971071642-35dcfefdb9c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNzMwN3wwfDF8c2VhcmNofDh8fG11c2V1bXxlbnwwfHx8fDE2Mzg1MjAzNzg&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+            background-size: cover;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 96%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        nav .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-size: 1.2em;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            padding: 160px 0;
+            background: rgba(0, 0, 0, 0.6);
+            margin-top: 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 4em;
+            margin-bottom: 15px;
+            color: #fff;
+            letter-spacing: 2px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.5em;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 100px 0;
+            margin-top: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .section img {
+            width: 25%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-content {
+            width: 50%;
+        }
+
+        .section h2 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #e0f7fa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            margin-top: 20px;
+            background-color: #ff6a6a;
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 20px rgba(255, 106, 106, 0.5);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ff3f3f;
+        }
+
+        /* Booking Section */
+          /* Booking Section */
+          .booking-section {
+            background: linear-gradient(135deg, rgba(255, 106, 106, 0.9), rgba(0, 198, 255, 0.7));
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.7), rgba(255, 106, 106, 0.9));
+        }
+
+        /* Multilingual Section */
+        .multilingual-section {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.8), rgba(255, 106, 106, 0.8));
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 80px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonials {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .testimonial {
+            width: 25%;
+            text-align: center;
+            color: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 106, 106, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(255, 106, 106, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .testimonial p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .testimonial h4 {
+            margin-top: 15px;
+            font-size: 1.4em;
+        }
+
+              /* Events Section */
+          .events-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(106, 90, 255, 0.7), rgba(0, 198, 255, 0.7));
+            text-align: center;
+        }
+
+        .event-cards {
+            display: flex;
+            justify-content: space-around;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .event-card {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 15px;
+            width: 25%;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            text-align: left;
+        }
+
+        .event-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .event-card h3 {
+            margin: 10px 0;
+            font-size: 1.6em;
+        }
+
+        .event-card p {
+            font-size: 1.2em;
+        }
+        /* Footer */
+         /* Footer Section */
+         .footer-section {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 50px 0;
+            text-align: center;
+            color: white;
+            border-top: 2px solid #ff6a6a;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
+            margin-top: 40px;
+        }
+
+        .footer-section .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-links li {
+            margin: 0 15px;
+        }
+
+        .footer-links li a {
+            color: #fff;
+            font-size: 1.2em;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .footer-links li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-icons img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column;
+            }
+
+            .section img {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+
+            .section-content {
+                width: 100%;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links li {
+                margin: 10px 0;
+            }
+
+            .social-icons img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        /* Chatbot
+        .chatbot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff6a6a;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chatbot:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        } */
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 768px) {
+            .section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section img {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+
+            .section-content {
+                width: 100%;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+
+            /* .chatbot img {
+                width: 50px;
+                height: 50px;
+            } */
+
+            .testimonial, .event-card {
+                width: 80%;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+           /* Video Section */
+           .video-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(106, 90, 255, 0.7), rgba(0, 198, 255, 0.7));
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .video-card {
+            width: 45%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 315px;
+        }
+          /* Gallery Section */
+          .gallery-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255, 106, 106, 0.7), rgba(0, 198, 255, 0.7));
+            text-align: center;
+        }
+
+        .gallery-section h2 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .gallery-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-item {
+            width: 30%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">Museum</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tickets">Tickets</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#payment">Payment</a></li>
+            <li><a href="#multilingual">Multilingual</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="home">
+        <div class="container">
+            <h1>Explore the Museum</h1>
+            <p>Book your tickets easily using our AI-powered chatbot for a seamless experience.</p>
+        </div>
+        
+    </header>
+
+    <!-- Booking Section -->
+    <section class="section booking-section" id="tickets">
+        <div class="section-content">
+            <h2>Book Your Tickets</h2>
+            <p>Our chatbot makes ticket booking easy and fast. Whether it’s for museum entry, exhibitions, or special shows, let us guide you through the process with just a few clicks.</p>
+            <a href="#" class="btn btn-booking">Start Booking</a>
+        </div>
+        <img src="https://www.travelbeetourism.com/images/flightticket.jpg" alt="Ticket Booking">
+    </section>
+    <!-- Payment Section -->
+    <section class="section payment-section" id="payment">
+        <div class="section-content">
+            <h2>Secure Payments</h2>
+            <p>Complete your booking with fast, secure payment options. We provide multiple payment gateways to ensure a smooth transaction so you can focus on enjoying your visit.</p>
+            <a href="#" class="btn btn-payment">Proceed to Payment</a>
+        </div>
+        <img src="https://www.moonstride.com/wp-content/uploads/2020/11/payment-gateway-banner.svg" alt="Secure Payment">
+    </section>
+
+    <!-- Multilingual Support Section -->
+    <section class="section multilingual-section" id="multilingual">
+        <div class="section-content">
+            <h2>Multilingual Support</h2>
+            <p>Our chatbot offers support in multiple languages, making it easier for visitors from different parts of the world to book their tickets effortlessly.</p>
+        </div>
+        <img src="https://assets.entrepreneur.com/content/3x2/2000/1632117135-370211-PBZD42-64.jpg" alt="Multilingual Support">
+    </section>
+
+   
+
+    <!-- Data-Driven Insights Section -->
+    <section class="section insights-section" id="analytics">
+        <div class="section-content">
+            <h2>Data-Driven Insights</h2>
+            <p>Gain insights into visitor behavior and patterns with our advanced data analytics. Use real-time data to optimize operations and improve the overall visitor experience.</p>
+            <a href="#" class="btn btn-insights">Learn More</a>
+        </div>
+        <img src="https://media.licdn.com/dms/image/D4D12AQEzz_oAhPfM8Q/article-cover_image-shrink_720_1280/0/1681996893702?e=2147483647&v=beta&t=7ttgYwo12NY2fOK06m9e38Xxg68PBjcx1oNmyuu9Fpk" alt="Analytics and Data">
+    </section>
+    <!-- Upcoming Events Section (Moved to the top after the header) -->
+    <section class="section events-section" id="events">
+        <h2>Upcoming Events</h2>
+        <div class="event-cards">
+            <div class="event-card">
+                <img src="https://media.australian.museum/media/dd/images/047_RamsesExhib_AustralianMuseum_credit_AnnaK.width-1600.2433c7a.jpg" alt="Event 1">
+                <h3>Ancient History Exhibition</h3>
+                <p>Explore artifacts and exhibits from ancient civilizations. Don't miss out!</p>
+            </div>
+            <div class="event-card">
+                <img src="https://static.vecteezy.com/system/resources/previews/028/858/117/large_2x/3d-render-of-modern-art-gallery-interior-with-paintings-on-the-wall-ai-generated-free-photo.jpg" alt="Event 2">
+                <h3>Modern Art Gallery</h3>
+                <p>Experience the best of modern art at our curated gallery event.</p>
+            </div>
+            <div class="event-card">
+                <img src="https://img.freepik.com/premium-photo/kids-engaged-vibrant-science-fair-with-colorful-experiments-interactive-displays_38013-51286.jpg" alt="Event 3">
+                <h3>Interactive Science Fair</h3>
+                <p>Join us for an interactive science fair for both kids and adults.</p>
+            </div>
+        </div>
+    </section>
+       <!-- Gallery Section -->
+       <section class="gallery-section" id="gallery">
+        <h2>Explore Our Gallery</h2>
+        <div class="gallery-wrapper">
+            <div class="gallery-item">
+                <img src="https://blogs.getty.edu/iris/files/2011/07/dusseldorf_gallery.jpg?x45884" alt="Gallery Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://aucklandproject.org/wp-content/uploads/2024/01/Spannish-Gallery-4-scaled.jpg" alt="Gallery Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://aucklandproject.org/wp-content/uploads/2024/01/3Q8A4684-scaled.jpg" alt="Gallery Image 3">
+            </div>
+        </div>
+    </section>
+    <!-- Video Section -->
+    <section class="video-section" id="videos">
+        <h2>Watch Museum Highlights</h2>
+        <div class="video-wrapper">
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Museum Tour" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Exhibition Highlights" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section" id="testimonials">
+        <h2 class="section-title">What Our Visitors Say</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>"Booking tickets has never been easier! The chatbot was super responsive and I managed to book my tickets in under a minute."</p>
+                <h4>- John Doe</h4>
+            </div>
+            <div class="testimonial">
+                <p>"The multilingual support was really helpful as I was able to book my tickets in my native language!"</p>
+                <h4>- Maria Lopez</h4>
+            </div>
+            <div class="testimonial">
+                <p>"This system is so efficient. I could book tickets and complete my payment in a few easy steps. Highly recommend!"</p>
+                <h4>- Ahmed Khan</h4>
+            </div>
+        </div>
+    </section>
+     
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Museum Ticket Booking System. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Twitter" /></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" /></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  
+
+    <!-- Chatbot Icon
+    <div class="chatbot" id="chatbot">
+        <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2022/06/Image_-_Chatbot.jpeg.jpg" alt="Chatbot">
+    </div> -->
+
+   
+        
+   
+  
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="chatbot"
+  agent-id="edf5d580-9f9e-4cd5-8661-cf67286ff734"
+  language-code="en"
+></df-messenger>
+</body>
+</html>
