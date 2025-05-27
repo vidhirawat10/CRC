@@ -5,14 +5,13 @@
   <img src="https://img.shields.io/badge/CSS-3-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/React.js-18-blue?style=for-the-badge" />
 </p>
 
 ---
 
 ## 📚 About
 
-This repository contains a collection of **mini web development projects** built during my **CRC Lab sessions**, aimed at practicing and strengthening frontend fundamentals. Each project is crafted to explore different concepts, from pure HTML/CSS to advanced components using React.js.
+This repository contains a collection of **mini web development projects** built during my **CRC Lab sessions**, aimed at practicing and strengthening frontend fundamentals. Each project is crafted to explore different concepts, from pure HTML/CSS to advanced components using JS.
 
 ---
 
@@ -30,14 +29,14 @@ This repository contains a collection of **mini web development projects** built
 
 | 📁 Project Name                | ⚙️ Tech Stack            | 🔗 Live Demo / Preview |
 |-------------------------------|--------------------------|------------------------|
-| 1. **Portfolio Landing Page** | HTML, CSS, JS            | _Coming Soon_          |
-| 2. **To-Do List App**         | HTML, CSS, JavaScript    | _Coming Soon_          |
-| 3. **Calculator**             | HTML, CSS, JavaScript    | _Coming Soon_          |
+| 1. **Calculator**             | HTML, CSS, JS            | _Coming Soon_          |
+| 2. **Game 1**                 | HTML, CSS, JavaScript    | _Coming Soon_          |
+| 3. **Game 2**                 | HTML, CSS, JavaScript    | _Coming Soon_          |
 | 4. **Weather App**            | JavaScript, Bootstrap    | _Coming Soon_          |
-| 5. **Responsive NavBar**      | HTML, CSS, Bootstrap     | _Coming Soon_          |
-| 6. **React Counter App**      | React.js (useState)      | _Coming Soon_          |
+| 5. **Ticketing System**       | HTML, CSS, Bootstrap     | _Coming Soon_          |
+| 6. **Todo List**              | HTML, CSS,               | _Coming Soon_          |
 | 7. **Form Validation UI**     | JavaScript, Bootstrap    | _Coming Soon_          |
-| 8. **Dark Mode Toggle**       | HTML, CSS, JS            | _Coming Soon_          |
+| 8. **Weather App**            | HTML, CSS, JS            | _Coming Soon_          |
 
 
 ---
@@ -46,8 +45,6 @@ This repository contains a collection of **mini web development projects** built
 Responsive layout creation using Bootstrap grid and utility classes
 
 DOM manipulation and event handling in JavaScript
-
-State management with React Hooks
 
 Reusable components and clean UI architecture
 
