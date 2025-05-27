@@ -21,7 +21,6 @@ This repository contains a collection of **mini web development projects** built
 - ✅ CSS3
 - ✅ JavaScript (ES6+)
 - ✅ Bootstrap 5
-- ✅ React.js (Hooks, Props, JSX)
 
 ---
 
@@ -42,13 +41,13 @@ This repository contains a collection of **mini web development projects** built
 ---
 
 ## 🧠 What I Learned
-Responsive layout creation using Bootstrap grid and utility classes
+- Responsive layout creation using Bootstrap grid and utility classes
 
-DOM manipulation and event handling in JavaScript
+- DOM manipulation and event handling in JavaScript
 
-Reusable components and clean UI architecture
+- Reusable components and clean UI architecture
 
-Real-world API integration (in Weather App)
+- Real-world API integration (in Weather App)
 
 ---
 
